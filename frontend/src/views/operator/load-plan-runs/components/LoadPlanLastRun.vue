@@ -17,8 +17,9 @@ el-table.run-table(
     :filter-method="onSelectFilter"
   )
     template(slot-scope='scope')
-      el-badge(:value="scope.row.loadPlanInstance.runCount" class="item")
+      el-badge(v-if="scope.row.loadPlanInstance.runCount > 1" :value="scope.row.loadPlanInstance.runCount" class="item")
         el-tag(:type='status(scope.row.status)')  {{scope.row.status}}
+      el-tag(v-else :type='status(scope.row.status)')  {{scope.row.status}}
   el-table-column(label='Name' min-width='200' sortable prop="name")
     template(slot-scope='scope')
       | {{scope.row.loadPlanInstance.name}}
