@@ -60,7 +60,7 @@ class DataServerService extends OdiConnector{
         .getTransactionalEntityManager
         .getFinder(classOf[OdiDataServer])
         .asInstanceOf[IOdiDataServerFinder]
-        .findAll//(true)
+        .findAll(true)
         .asInstanceOf[java.util.Vector[OdiDataServer]]
         .map(new DataServer(_)).toList
       odiInstance.close

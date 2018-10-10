@@ -81,6 +81,8 @@ class SettingService @Autowired()(val settingRepository: SettingRepository){
     return None
   }
 
+  def isMailServiceActive = activeMailService
+
   def activeMailService: Boolean = {
     val s = settingRepository.findByNameIgnoreCase("mail")
     if(s != null) {

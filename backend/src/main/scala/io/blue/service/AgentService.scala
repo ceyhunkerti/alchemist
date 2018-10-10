@@ -68,7 +68,7 @@ class AgentService extends OdiConnector{
         .getTransactionalEntityManager
         .getFinder(classOf[OdiPhysicalAgent])
         .asInstanceOf[IOdiPhysicalAgentFinder]
-        .findAll//(true)
+        .findAll(true)
         .asInstanceOf[java.util.Vector[OdiPhysicalAgent]]
         .map(new PhysicalAgent(_)).toList
       odiInstance.close

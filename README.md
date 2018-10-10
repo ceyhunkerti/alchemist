@@ -27,7 +27,8 @@ Web application for oracle-data-integrator.
 - Find `odi-core.jar` in your ODI installation folder
 - Place your `odi-core.jar` under `alchemist/backend/lib`
 - Remove any `odi-code.jar` if there is already one
-- edit `build.gradle` like;  ```groovy
+- edit `build.gradle` like;
+```groovy
     compile fileTree(include: [
     'bsh-2.0b4.jar',
     'identitystore.jar',

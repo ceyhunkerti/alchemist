@@ -29,6 +29,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 @Transactional
 class UserService @Autowired()(val userRepository: UserRepository) extends UserDetailsService {
 
+  @(Autowired @setter)
+  private var settingService: SettingService = _
+
   @Value("${security.encoding-strength}")
   private var encodingStrength: java.lang.Integer = _
 
@@ -58,11 +61,11 @@ class UserService @Autowired()(val userRepository: UserRepository) extends UserD
 
   def findMe  = {
     val username: String = SecurityContextHolder
-    .getContext()
-    .getAuthentication()
-    .getPrincipal()
-    .asInstanceOf[String]
-    userRepository.findByUsername("system")
+      .getContext
+      .getAuthentication()
+      .getPrincipal
+      .asInstanceOf[String]
+    userRepository.findByUsername(username)
   }
 
   def findByNameContainingIgnoreCase(name:String) =
@@ -74,14 +77,21 @@ class UserService @Autowired()(val userRepository: UserRepository) extends UserD
 
 
   def create(user: User, system: Boolean = false) = {
-    val password = if(!system) RandomStringUtils.random(8,true,true) else user.password
+    val password = if(!system) {
+      if(settingService.isMailServiceActive) {
+        log.debug("Generating password ...")
+        RandomStringUtils.random(8,true,true)
+      } else { user.username }
+    } else {
+      user.password
+    }
 
-    log.debug("Generating password ...")
     user.password = new ShaPasswordEncoder(encodingStrength).encodePassword(password, null)
 
     val u = userRepository.save(user)
-    log.debug("Sending mail ...")
-    sendMail(SendUserPasswordMail(u, password))
+    if (settingService.isMailServiceActive) {
+      sendMail(SendUserPasswordMail(u, password))
+    }
     log.debug(s"User '${user.username}' created.")
     u
   }
