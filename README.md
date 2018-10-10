@@ -35,7 +35,8 @@ Web application for oracle-data-integrator.
     'your-odi-code.jar', //! -----> this line
     'ojdl.jar',
     'dms.jar'
-  ], dir: 'lib/odi') ```
+  ], dir: 'lib/odi')
+```
 - Build the project
 
 
