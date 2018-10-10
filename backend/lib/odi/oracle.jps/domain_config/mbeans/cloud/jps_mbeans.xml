@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<application-mbeans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://xmlns.oracle.com/oracleas/schema/11/application-mbeans-11_1.xsd" schema-major-version="11" schema-minor-version="1">
+    <config-mbeans>
+        <jmx-config-mbean management-interface="oracle.security.jps.mas.mgmt.jmx.config.JpsConfigMXBean" class="oracle.security.jps.mas.mgmt.jmx.config.JpsConfigBeanImpl" objectname="com.oracle.jps:type=JpsConfig">
+            <config-file path="../jps-config.xml"/>
+        </jmx-config-mbean>
+        <jmx-config-mbean management-interface="oracle.security.jps.mas.mgmt.jmx.config.ConfigurationMXBean" class="oracle.security.jps.mas.mgmt.jmx.config.OpssConfigurationBeanImpl" objectname="com.oracle.jps:type=OPSSConfig">
+            <config-file path="../jps-config.xml"/>
+        </jmx-config-mbean>
+
+        <jmx-config-mbean management-interface="oracle.security.jps.mas.mgmt.jmx.credstore.JpsCredentialMXBean" class="oracle.security.jps.mas.mgmt.jmx.credstore.JpsCredentialBeanImpl" objectname="com.oracle.jps:type=JpsCredentialStore">
+            <property value="Farm" key="Scope" />
+            <property key="oracle.security.jps.context" value="seed" />
+            <config-file path="../cwallet.sso"/>
+        </jmx-config-mbean>
+        <jmx-config-mbean management-interface="oracle.security.jps.mas.mgmt.jmx.keystore.JpsKeyStoreMXBean" class="oracle.security.jps.mas.mgmt.jmx.keystore.JpsKeyStoreBeanImpl" objectname="com.oracle.jps:type=JpsKeyStore">
+            <property value="Farm" key="Scope" />
+            <property key="oracle.security.jps.context" value="seed" />
+        </jmx-config-mbean>
+        <jmx-config-mbean management-interface="oracle.security.jps.mas.mgmt.jmx.policy.JpsGlobalPolicyStoreMXBean" class="oracle.security.jps.mas.mgmt.jmx.policy.JpsGlobalPolicyStoreImpl" objectname="com.oracle.jps:type=JpsGlobalPolicyStore">
+            <property value="Farm" key="Scope" />
+            <property key="oracle.security.jps.context" value="seed" />
+        </jmx-config-mbean>
+        <jmx-config-mbean management-interface="oracle.security.jps.mas.mgmt.jmx.policy.JpsAdminRoleMXBean" class="oracle.security.jps.mas.mgmt.jmx.policy.JpsAdminRoleImpl" objectname="com.oracle.jps:type=JpsAdminPolicyStore">
+            <property value="Farm" key="Scope" />
+            <property key="oracle.security.jps.context" value="seed" />
+        </jmx-config-mbean>
+        <jmx-config-mbean management-interface="oracle.security.jps.mas.mgmt.jmx.policy.JpsApplicationPolicyStoreMXBean" class="oracle.security.jps.mas.mgmt.jmx.policy.JpsApplicationPolicyStoreImpl" objectname="com.oracle.jps:type=JpsApplicationPolicyStore">
+            <property value="Farm" key="Scope" />
+            <property key="oracle.security.jps.context" value="seed" />
+        </jmx-config-mbean>
+        <jmx-config-mbean management-interface="oracle.security.jps.mas.mgmt.jmx.audit.JpsAuditMXBean" class="oracle.security.jps.mas.mgmt.jmx.audit.JpsAuditBeanImpl" objectname="com.oracle.jps:type=JpsAudit">
+            <config-file path="../jps-config.xml"/>
+        </jmx-config-mbean> 
+    </config-mbeans>
+</application-mbeans>
+

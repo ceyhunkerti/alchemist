@@ -1,0 +1,2354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- changeLog
+    jiefu: add properties into principal
+    shuaisun: make this could work with system-jazn-data.xml 
+    cyding: add association metadata to role->roleCategory
+    cyding: add metadata to member-resourceType
+    yufyu: support advanced policies in admin policy
+    julherna: add metadata-provisioned and app-stripe-version
+    duyang: add metadata to resource-actionsType
+    duyang: removed metadata support on grant; added metadata support to grantee/permission/permission-set-ref
+    duyang: formatted in eclipse
+    palrao: enhanced schema to support meta-data information for 11.1.1.8.0
+    author: palrao
+    component: JPS
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="jazn-data" type="JAZN-DATAjazn-dataType">
+		<xsd:annotation>
+			<xsd:documentation>This element is the top level element for Oracle's
+				JPS DataStore.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="JAZN-DATAjazn-dataType">
+		<xsd:sequence>
+			<xsd:element name="jazn-realm" type="JAZN-DATAjazn-realmType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>This is the set of realms in the identity store.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="policy-store" type="JAZN-DATApolicyStoreType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>This is the policy information
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="system-policy" type="JAZN-DATAsystem-policyType">
+				<xsd:annotation>
+					<xsd:documentation>TBD</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="jazn-policy" type="JAZN-DATAjazn-policyType"
+				minOccurs="0" />
+		</xsd:sequence>
+		<xsd:attribute name="schema-major-version" type="xsd:integer"
+			fixed="11">
+			<xsd:annotation>
+				<xsd:documentation>The element specifies the major version of this
+					schema.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="schema-minor-version" type="xsd:string"
+			fixed="1.1.9.0">
+			<xsd:annotation>
+				<xsd:documentation>This element specifies the minor version of this
+					schema.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<!-- identity store schema -->
+	<xsd:complexType name="JAZN-DATAjazn-realmType">
+		<xsd:annotation>
+			<xsd:documentation>
+				realm type
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="realm" type="JAZN-DATArealmType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="default" type="xsd:string" use="required">
+			<xsd:annotation>
+				<xsd:documentation>
+					This attribute specifies the default realm among the set of realms.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAvariable-definitionsType">
+		<xsd:annotation>
+			<xsd:documentation />
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="variable-definition" minOccurs="0"
+				maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="name" type="xsd:string" minOccurs="0" />
+						<xsd:element name="expression" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="enabled" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="encoded-attributes" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="givenName" type="xsd:string"
+							minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAattributesType">
+		<xsd:annotation>
+			<xsd:documentation />
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="attribute" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="meta-data" type="JAZN-DATAmetaDataType"
+							minOccurs="0" maxOccurs="1" />
+						<xsd:element name="name" type="xsd:string" minOccurs="0" />
+						<xsd:element name="display-name" type="JAZN-DATAstringType"
+							minOccurs="0" />
+						<xsd:element name="description" type="JAZN-DATAstringType"
+							minOccurs="0" />
+						<xsd:element name="attribute-namespace" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="attribute-data-type" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="attribute-category" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="attribute-type" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="attribute-issuer" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="is-single-valued" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="presence-required" type="xsd:string"
+							 minOccurs="0" />
+						<xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType"
+							 minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATArule-combining-algsType">
+		<xsd:annotation>
+			<xsd:documentation>This defines the rule combining algorithms
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="rule-combining-alg" minOccurs="0"
+				maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="name" type="xsd:string" minOccurs="0" />
+						<xsd:element name="execution-frequency" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="principal-attributes" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="resource-attributes" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="action-attributes" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="env-attributes" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="match-info" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="java-class-name" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="enabled" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="encoded-attributes" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="givenName" type="xsd:string"
+							minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApolicy-combining-algsType">
+		<xsd:annotation>
+			<xsd:documentation>This defines the policy combining algorithms
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="policy-combining-alg" minOccurs="0"
+				maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="name" type="xsd:string" minOccurs="0" />
+						<xsd:element name="execution-frequency" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="principal-attributes" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="resource-attributes" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="action-attributes" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="env-attributes" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="match-info" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="java-class-name" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="enabled" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="encoded-attributes" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="givenName" type="xsd:string"
+							minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAfunctionsType">
+		<xsd:annotation>
+			<xsd:documentation />
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="function" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="meta-data" type="JAZN-DATAmetaDataType"
+							minOccurs="0" maxOccurs="1" />
+						<xsd:element name="name" type="xsd:string" minOccurs="0" />
+						<xsd:element name="display-name" type="JAZN-DATAstringType"
+							minOccurs="0" />
+						<xsd:element name="description" type="JAZN-DATAstringType"
+							minOccurs="0" />
+						<xsd:element name="function-parameters" type="JAZN-DATAfunction-parameterType"
+							minOccurs="0" />
+						<xsd:element name="function-return-type" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="function-class" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="function-category" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType"
+							minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAfunction-parameterType">
+		<xsd:annotation>
+			<xsd:documentation />
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="function-parameter" type="xsd:string"
+				minOccurs="0"  maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAconfigurationsType">
+		<xsd:annotation>
+			<xsd:documentation />
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="configuration" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="name" type="xsd:string" minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATArealmType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a realm.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the name of the realm.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="users" type="JAZN-DATAusersType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the set of users in this realm.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="roles" type="JAZN-DATArolesType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the set of roles in this realm.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAusersType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies the set of users.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="user" type="JAZN-DATAuserType"
+				minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies a user in this realm.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAuserType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a user.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:all>
+			<xsd:element name="name" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the name of the user.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="display-name" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the display name of the user. May be used by
+						GUI tools.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="description" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element contains a description that describes the
+						user.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="guid" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element contains a unique identifier used to
+						reference the user.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="credentials" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This Element contains the authentication password for
+						the user. It can be configured to be in cleartext or
+						obfuscated form.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:all>
+		<xsd:attribute name="deactivated" type="trueFalseType"
+			use="optional">
+			<xsd:annotation>
+				<xsd:documentation>
+					This attribute specifies if the user is activated or not.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATArolesType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a set of enterprise (idstore) roles/groups.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="role" type="JAZN-DATAroleType"
+				minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies an idstore role.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAroleType">
+		<xsd:all>
+			<xsd:element name="name" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the role name.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="display-name" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the display name of the role.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="description" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element contains a description that describes the
+						role.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="guid" type="xsd:string" minOccurs="0" />
+			<xsd:element name="members" type="JAZN-DATAmembersType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element contains a list of users or roles that are
+						members of this role.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="owners" type="JAZN-DATAownersType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies owners of this role.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAmembersType">
+		<xsd:sequence>
+			<xsd:element name="member" type="JAZN-DATAmemberType"
+				minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies a role member.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAmemberType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a role member.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:all>
+			<xsd:element name="type" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the type of the role member.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="name" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the name of the role member.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAownersType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a role owner.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="owner" type="JAZN-DATAownerType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAownerType">
+		<xsd:all>
+			<xsd:element name="type" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the type of the role member.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="name" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the name of the member.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+	<!-- Policy Store schema -->
+	<xsd:complexType name="JAZN-DATApolicyStoreType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies the authorization policy.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="jazn-permission-classes" type="JAZN-DATAjazn-permission-classesType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						RESERVED FOR FUTURE USE.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="jazn-principal-classes" type="JAZN-DATAjazn-principal-classesType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						RESERVED FOR FUTURE USE.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="globalpolicy" type="JAZN-DATAapplicationType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the global policy.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="applications" type="JAZN-DATAapplicationsType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies a set of application policies.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="jazn-policy" type="JAZN-DATAjazn-policyType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the global or system policy.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAapplicationsType">
+		<xsd:sequence>
+			<xsd:element name="application" type="JAZN-DATAapplicationType"
+				minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies an application policy.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAapplicationOneUserPropertyType">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" minOccurs="1"
+				maxOccurs="1" />
+			<xsd:element name="value" type="xsd:string" minOccurs="1"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAapplicationUserPropertiesType">
+		<xsd:sequence>
+			<xsd:element name="property"
+				type="JAZN-DATAapplicationOneUserPropertyType" minOccurs="1"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAapplicationType">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the policy context identifier.
+						Typically, this is the name of the application during
+						deployment.
+                        </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="user-properties"
+				type="JAZN-DATAapplicationUserPropertiesType" minOccurs="0"
+				maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>This element is the user properties of the
+						application policy.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="description" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>This element is a description of the application
+						policy.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="variable-definitions" type="JAZN-DATAvariable-definitionsType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>This is for varialbe definitions. Currently not
+						used.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="rule-combining-algs" type="JAZN-DATArule-combining-algsType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>This is for rulecombining algorithms.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="policy-combining-algs" type="JAZN-DATApolicy-combining-algsType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>This is for policy combining algorithms.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="configurations" type="JAZN-DATAconfigurationsType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>This is for configuration definitions. Currently
+						not used.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="attributes" type="JAZN-DATAattributesType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>This is the attribute definition of the advanced
+						policy</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="functions" type="JAZN-DATAfunctionsType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>This is the function definition of the advanced
+						policy</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="rules" type="JAZN-DATArulesType"
+				minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation />
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="obligations" type="JAZN-DATAobligationType"
+				minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>This is for policy obligation definitions
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="advices" type="JAZN-DATAadviceType"
+				minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>This is for policy advice definitions
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="app-roles" type="JAZN-DATAapprolesType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the set of application roles in this
+						application.
+			                </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="role-categories" type="JAZN-DATArole-categoriesType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>This is for role category definitions
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="resource-types" type="JAZN-DATAresource-typesType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>This is for resource type definitions
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="resources" type="JAZN-DATAresourcesType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>This is for resource instance definitions
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="permission-sets" type="JAZN-DATApermission-setsType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>This is for permission set definitions
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="admin-policy" type="JAZN-DATAadmin-policyType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>This is the admin policy</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="policies" type="JAZN-DATApoliciesType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the runtime advanced policy of this
+						application. The set of obligations and rules.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="policySets" type="JAZN-DATApolicySetType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the runtime advanced policy set of this
+						application.
+                                </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="policy-domains" type="JAZN-DATApolicy-domainsType"
+				minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the policy domains for this application.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="jazn-policy" type="JAZN-DATAjazn-policyType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This is jaas policy of this application. The set of permissions
+						granted to a grantee
+						(users/roles/codesource) either directly or through permission set.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="jacc-repository" type="JAZN-DATAjacc-repositoryType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the Java Authorization Contract for Container
+						(JACC)
+						policies for this application.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="role-policies" type="JAZN-DATArolepoliciesType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the role mapping policies for this application.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="locale" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation>This element specifies application default locale
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="mode" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation>This element specifies the application MLS mode
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="version" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation>This element specifies application version
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="distribution-version" type="xsd:string"
+			use="optional">
+			<xsd:annotation>
+				<xsd:documentation>This element specifies application distribution
+					version</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="app-stripe-version" type="xsd:string" use="optional">
+			<xsd:annotation>
+				<xsd:documentation>This element specifies application stripe version
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="metadata-provisioned" type="xsd:boolean" use="optional">
+			<xsd:annotation>
+				<xsd:documentation>This element specifies if metadata is provisioned
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAapprolesType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a set of application roles.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="app-role" type="JAZN-DATAapproleType"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAapproleType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies an application role.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:all>
+			<xsd:element name="meta-data" type="JAZN-DATAmetaDataType"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="name" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the name of the application role.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="class" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the fully qualified name of the Java class
+						implementing the application role.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="display-name" type="JAZN-DATAstringType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the display name of the role. May by used by
+						GUI tools.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="description" type="JAZN-DATAstringType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This elements specifies the description that describes the application
+						role.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="guid" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies an unique identifier to reference
+						the application role.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="uniquename" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifes an unique name used to reference
+						the application role.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifes additional attributes associated
+						with the application role.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="inheritedapproles" type="JAZN-DATAapprolemembersType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the set of application roles that
+						are assigned to this application role.
+						RESERVED FOR FUTURE USE.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="members" type="JAZN-DATAapprolemembersType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the set of roles, users and
+						application roles that are members of this role.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="encoded-attributes" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation />
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="role-member-expression" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation />
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="role-type" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation />
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="assigned-roles" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation />
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="role-scope" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation />
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="role-category" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation />
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="active-start-date" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation />
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="active-end-date" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation />
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="role-policies" type="JAZN-DATAapprolepoliciesType"
+				minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation />
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAapprolepolicyType">
+		<xsd:all>
+			<xsd:element name="members" type="JAZN-DATArolepolicymembersType">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the set of roles, users and
+						application roles that are members of this role policy.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="role-policy-ref" type="xsd:string" />
+                        <xsd:element name="metadata-member-type" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                        <xsd:element name="owner-version" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATArolepolicymembersType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a set of role policy members.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="principal" type="JAZN-DATArolepolicyPrincipalType"
+				minOccurs="1" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies a member of role policy.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATArolepolicyPrincipalType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a role-policy principal with meta-data
+				information.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:all>
+			<xsd:element name="metadata-member-type" type="xsd:string"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="name" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the name of the principal.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="class" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>						This element specifies the full qualified name of the
+						Java class implementing the Principal.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="uniquename" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the unique name of the principal.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="guid" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies a globally unique identifier of
+						the principal.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAapprolemembersType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a set of role members.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="member" type="JAZN-DATAapprolememberType"
+				maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies a role member.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAapprolememberType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies an application role member.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:all>
+			<xsd:element name="metadata-member-type" type="xsd:string"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="name" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the name of the role member.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="class" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the fully qualified name of the
+						Java class implementing the role member.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="uniquename" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the unique name of the role
+						member.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="guid" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the globally unique identifier of
+						the role member.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+                    <xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType" minOccurs="0" maxOccurs="1">
+                        <xsd:annotation>
+                            <xsd:documentation>This is the properties for a principal.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATArole-categoriesType">
+		<xsd:sequence>
+			<xsd:element name="role-category" type="JAZN-DATArole-categoryType"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATArole-categoryType">
+		<xsd:sequence>
+			<xsd:element name="meta-data" type="JAZN-DATAmetaDataType"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="members" type="JAZN-DATArole-category-memberType"
+				minOccurs="0" />
+			<xsd:element name="description" type="JAZN-DATAstringType"
+				minOccurs="0" />
+			<xsd:element name="display-name" type="JAZN-DATAstringType"
+				minOccurs="0" />
+			<xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATArole-category-memberType">
+		<xsd:sequence>
+			<xsd:element name="role-name-ref" type="xsd:string"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAresource-typesType">
+		<xsd:annotation>
+			<xsd:documentation> This element specifies a set of resource types
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="resource-type" type="JAZN-DATAresource-typeType"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAresource-typeType">
+		<xsd:annotation>
+			<xsd:documentation> This element specifies a resource type
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:all>
+			<xsd:element name="meta-data" type="JAZN-DATAmetaDataType"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="name" type="xsd:string" minOccurs="1" />
+			<xsd:element name="display-name" type="JAZN-DATAstringType"
+				minOccurs="0" />
+			<xsd:element name="description" type="JAZN-DATAstringType"
+				minOccurs="0" />
+			<xsd:element name="provider-name" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="matcher-class" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="resource-matching-alg-class" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="resource-converter-class" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="actions-delimiter" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="actions" type="xsd:string" minOccurs="0" />
+			<xsd:element name="resource-name-expression" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="resource-type-hierarchy" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="resource-name-delimiter" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="all-resource-keyword" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="all-resource-action-keyword" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="resource-type-resource-attrs" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="super-resource-type" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="encoded-attributes" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType"
+				minOccurs="0" />
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAresourcesType">
+		<xsd:annotation>
+			<xsd:documentation> This element specifies a set of resources
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="resource" type="JAZN-DATAresourceType"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAresourceType">
+		<xsd:annotation>
+			<xsd:documentation> This element specifies a resource
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:all>
+			<xsd:element name="meta-data" type="JAZN-DATAmetaDataType"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="display-name" type="JAZN-DATAstringType"
+				minOccurs="0" />
+			<xsd:element name="description" type="JAZN-DATAstringType"
+				minOccurs="0" />
+			<xsd:element name="type-name-ref" type="xsd:string" />
+			<xsd:element name="encoded-attributes" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="resource-locality-ref" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType"
+				minOccurs="0" />
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApermission-setsType">
+		<xsd:annotation>
+			<xsd:documentation> This element specifies a set of permissionSets
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="permission-set" type="JAZN-DATApermission-setType"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApermission-setType">
+		<xsd:annotation>
+			<xsd:documentation> This element specifies a permissionSet
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:all>
+			<xsd:element name="meta-data" type="JAZN-DATAmetaDataType"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="description" type="JAZN-DATAstringType"
+				minOccurs="0" />
+			<xsd:element name="display-name" type="JAZN-DATAstringType"
+				minOccurs="0" />
+			<xsd:element name="encoded-attributes" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="member-resources" type="JAZN-DATAmember-resourcesType"
+				minOccurs="0" />
+			<xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType"
+				minOccurs="0" />
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAmember-resourcesType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a set of resources belonging to a permissionSet
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence maxOccurs="unbounded">
+			<xsd:element name="member-resource" type="JAZN-DATAmember-resourceType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAmember-resourceType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a resource that belongs to a permissionSet
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:all>
+                        <xsd:element name="metadata-member-type" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                        <xsd:element name="owner-version" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="resource-name" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="type-name-ref" type="xsd:string"
+				minOccurs="1" />
+			<xsd:element name="display-name" type="JAZN-DATAstringType"
+				minOccurs="0" />
+			<xsd:element name="actions" type="xsd:string" minOccurs="0" />
+			<xsd:element name="resource-expression" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="resource-constraint" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="all-resource-keyword" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="all-resource-action-keyword" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType"
+				minOccurs="0" />
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAresource-actions-setType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a set of resources belonging to a policy target
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence maxOccurs="unbounded">
+			<xsd:element name="resource-actions" type="JAZN-DATAresource-actionsType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAresource-actionsType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a resource that belongs to a policy target
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:all>
+			<xsd:element name="metadata-member-type" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                        <xsd:element name="owner-version" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="resource-name" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="type-name-ref" type="xsd:string"
+				minOccurs="1" />
+			<xsd:element name="display-name" type="JAZN-DATAstringType"
+				minOccurs="0" />
+			<xsd:element name="description" type="JAZN-DATAstringType"
+				minOccurs="0" />
+			<xsd:element name="actions" type="JAZN-DATAactionsType"
+				minOccurs="0" />
+			<xsd:element name="resource-expression" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="resource-Constraint" type="JAZN-DATAconstraintType"
+				minOccurs="0" />
+			<xsd:element name="action-Constraint" type="JAZN-DATAconstraintType"
+				minOccurs="0" />
+			<xsd:element name="all-resource-keyword" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="all-resource-action-keyword" type="xsd:string"
+				 minOccurs="0" />
+			<xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType"
+				 minOccurs="0" />
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAactionsType">
+		<xsd:sequence>
+			<xsd:element name="action" type="xsd:string" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATArulesType">
+		<xsd:sequence>
+			<xsd:element name="rule" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="meta-data" type="JAZN-DATAmetaDataType"
+							minOccurs="0" maxOccurs="1" />
+						<xsd:element name="name" type="xsd:string" minOccurs="0" />
+						<xsd:element name="display-name" type="JAZN-DATAstringType"
+							minOccurs="0" />
+						<xsd:element name="description" type="JAZN-DATAstringType"
+							 minOccurs="0" />
+						<xsd:choice>
+							<!--CHOICE INTRODUCED BETWEEN EXISTING TARGET DEFINITION AND THE NEW 
+								MULTI_TARGET DEFINITION -->
+							<xsd:element name="target" type="JAZN-DATAtargetType"
+								maxOccurs="unbounded" />
+							<xsd:element name="multi-target" type="JAZN-DATAMultiTarget"
+								maxOccurs="1" />
+						</xsd:choice>
+						<xsd:element name="enabled" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="effect" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="condition-expression" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="obligation-refs" type="JAZN-DATAobligation-refsType"
+							minOccurs="0" />
+						<xsd:element name="denyObligation-refs" type="JAZN-DATAobligation-refsType"
+							minOccurs="0" />
+						<xsd:element name="allowAdvice-refs" type="JAZN-DATAadvice-refsType"
+							minOccurs="0" />
+						<xsd:element name="denyAdvice-refs" type="JAZN-DATAadvice-refsType"
+							minOccurs="0" />
+						<xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType"
+							minOccurs="0" />
+						<xsd:element name="encoded-attributes" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="envConstraint" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="givenName" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="sharable" type="xsd:string"
+							minOccurs="0" />
+					</xsd:sequence>
+					<xsd:attribute name="policyId" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>The element specifies the the policy Id of the
+								schema.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAadmin-policyType">
+		<xsd:sequence>
+			<xsd:element name="admin-roles" type="JAZN-DATAapprolesType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the set of admin application roles in this
+						application.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="jazn-policy" type="JAZN-DATAjazn-policyType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This is jaas policy of this application. The set of permissions
+						granted to a grantee (users/roles/codesource) either directly or
+						through permission set.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="rules" type="JAZN-DATArulesType" 
+                        	minOccurs="0" />
+			<xsd:element name="obligations" type="JAZN-DATAobligationType"
+                        	minOccurs="0" />
+			<xsd:element name="policies" type="JAZN-DATApoliciesType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the runtime advanced policy of this
+						admin policy. The set of obligations and rules.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApolicy-domainsType">
+		<xsd:sequence>
+			<xsd:element name="policy-domain" minOccurs="0"
+				maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="meta-data" type="JAZN-DATAmetaDataType"
+							minOccurs="0" maxOccurs="1" />
+						<xsd:element name="name" type="xsd:string" />
+						<xsd:element name="display-name" type="JAZN-DATAstringType"
+							minOccurs="0" />
+						<xsd:element name="description" type="JAZN-DATAstringType"
+							minOccurs="0" />
+						<xsd:element name="admin-policy" type="JAZN-DATAadmin-policyType"
+							minOccurs="0" />
+						<xsd:element name="obligations" type="JAZN-DATAobligationType"
+							minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element name="advices" type="JAZN-DATAadviceType"
+							minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element name="rules" type="JAZN-DATArulesType"
+							minOccurs="0" maxOccurs="unbounded" />
+						<xsd:element name="permission-sets" type="JAZN-DATApermission-setsType"
+							minOccurs="0" />
+						<xsd:element name="resources" type="JAZN-DATAresourcesType"
+							minOccurs="0" />
+						<xsd:element name="policies" type="JAZN-DATApoliciesType"
+							minOccurs="0" />
+						<xsd:element name="policySets" type="JAZN-DATApolicySetType"
+							minOccurs="0" />
+						<xsd:element name="policy-domains" type="JAZN-DATApolicy-domainsType"
+							minOccurs="0" maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApoliciesType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a policy.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="policy" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="meta-data" type="JAZN-DATAmetaDataType"
+							minOccurs="0" maxOccurs="1" />
+						<xsd:element name="name" type="xsd:string" minOccurs="0" />
+						<xsd:element name="display-name" type="JAZN-DATAstringType"
+							minOccurs="0" />
+						<xsd:element name="description" type="JAZN-DATAstringType"
+							minOccurs="0" />
+						<xsd:choice>
+							<!--CHOICE INTRODUCED BETWEEN EXISTING TARGET DEFINITION AND THE NEW 
+								MULTI_TARGET DEFINITION -->
+							<xsd:element name="target" type="JAZN-DATAtargetType"
+								maxOccurs="unbounded" />
+							<xsd:element name="multi-target" type="JAZN-DATAMultiTarget"
+								maxOccurs="1" />
+						</xsd:choice>
+						<xsd:element name="issuer" type="JAZN-DATApolicyIssuerType"
+							minOccurs="0" />
+						<xsd:element name="version" type="xsd:string"
+							minOccurs="1" />
+						<xsd:element name="givenName" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="policyDefaults" type="xsd:string"
+							minOccurs="0" />
+						<xsd:choice maxOccurs="unbounded">
+							<xsd:element name="combinerParameter" type="JAZN-DATAcombinerParameterType"
+								minOccurs="0" maxOccurs="unbounded" />
+							<xsd:element name="ruleCombinerParameter"
+								type="JAZN-DATAruleCombinerParameterType" minOccurs="0"
+								maxOccurs="unbounded" />
+							<xsd:element name="rule-refs" type="JAZN-DATArule-refsType"
+								minOccurs="0" />
+						</xsd:choice>
+						<xsd:element name="envConstraint" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="obligation-refs" type="JAZN-DATAobligation-refsType"
+							minOccurs="0" />
+						<xsd:element name="denyObligation-refs" type="JAZN-DATAobligation-refsType"
+							minOccurs="0" />
+						<xsd:element name="allowAdvice-refs" type="JAZN-DATAadvice-refsType"
+							minOccurs="0" />
+						<xsd:element name="denyAdvice-refs" type="JAZN-DATAadvice-refsType"
+							minOccurs="0" />
+						<xsd:element name="maxDelegationDepth" type="xsd:integer"
+							minOccurs="0" />
+						<xsd:element name="encoded-attributes" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType"
+							minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApolicySetType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a policy set.
+                        </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="policySet" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="meta-data" type="JAZN-DATAmetaDataType"
+							minOccurs="0" maxOccurs="1" />
+						<xsd:element name="name" type="xsd:string" minOccurs="0" />
+						<xsd:element name="display-name" type="JAZN-DATAstringType"
+							minOccurs="0" />
+						<xsd:element name="description" type="JAZN-DATAstringType"
+							minOccurs="0" />
+						<xsd:choice>
+							<!--CHOICE INTRODUCED BETWEEN EXISTING TARGET DEFINITION AND THE NEW 
+								MULTI_TARGET DEFINITION -->
+							<xsd:element name="target" type="JAZN-DATAtargetType"
+								maxOccurs="unbounded" />
+							<xsd:element name="multi-target" type="JAZN-DATAMultiTarget"
+								maxOccurs="1" />
+						</xsd:choice>
+						<xsd:element name="issuer" type="JAZN-DATApolicyIssuerType"
+							minOccurs="0" />
+						<xsd:element name="version" type="xsd:string"
+							minOccurs="1" />
+						<xsd:element name="givenName" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="policSetDefaults" type="xsd:string"
+							minOccurs="0" />
+						<xsd:choice maxOccurs="unbounded">
+							<xsd:element name="combinerParameter" type="JAZN-DATAcombinerParameterType"
+								minOccurs="0" maxOccurs="unbounded" />
+							<xsd:element name="policyCombinerParameter"
+								type="JAZN-DATApolicyCombinerParameterType" minOccurs="0"
+								maxOccurs="unbounded" />
+							<xsd:element name="policySetCombinerParameter"
+								type="JAZN-DATApolicySetCombinerParameterType" minOccurs="0"
+								maxOccurs="unbounded" />
+							<xsd:element name="policy-refs" type="JAZN-DATApolicy-refsType"
+								minOccurs="0" />
+							<xsd:element name="policySet-refs" type="JAZN-DATApolicySet-refsType"
+								minOccurs="0" />
+						</xsd:choice>
+						<xsd:element name="envConstraint" type="JAZN-DATAconstraintType"
+							minOccurs="0" />
+						<xsd:element name="allowObligation-refs" type="JAZN-DATAobligation-refsType"
+							minOccurs="0" />
+						<xsd:element name="denyObligation-refs" type="JAZN-DATAobligation-refsType"
+							minOccurs="0" />
+						<xsd:element name="allowAdvice-refs" type="JAZN-DATAadvice-refsType"
+							minOccurs="0" />
+						<xsd:element name="denyAdvice-refs" type="JAZN-DATAadvice-refsType"
+							minOccurs="0" />
+						<xsd:element name="maxDelegationDepth" type="xsd:integer"
+							minOccurs="0" />
+						<xsd:element name="encoded-attributes" type="xsd:string"
+							minOccurs="0" />
+						<xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType"
+							minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAjazn-policyType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a policy.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="grant" type="JAZN-DATAgrantType"
+				minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies a set of grants.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAgrantType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a grant of a permission to a grantee.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="description" type="JAZN-DATAstringType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element contains a description about the grant.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="display-name" type="JAZN-DATAstringType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation />
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="enabled" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation />
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="grantee" type="JAZN-DATAgranteeType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the grantee who is granted the
+						permission(s).
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="permissions" type="JAZN-DATApermissionsType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies a set of permissions.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			
+			<xsd:element name="permission-set-refs" type="JAZN-DATApermission-set-refsType"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApermission-set-refsType">
+		<xsd:sequence>
+			<xsd:element name="permission-set-ref" type="JAZN-DATApermission-set-refType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApermission-set-refType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a permission set reference.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:all>
+			<xsd:element name="name" type="xsd:string" maxOccurs="1"
+				minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the reference of the permission set.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+            <xsd:element name="metadata-member-type" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="owner-version" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApolicy-permission-set-refsType">
+		<xsd:sequence>
+			<xsd:element name="permission-set-ref" type="xsd:string"
+				minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAtargetType">
+		<xsd:annotation>
+			<xsd:documentation>This is the advanced policy target.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="subject-combining-alg" type="xsd:string"
+				minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>This is the subject combining algorithm. Could
+						be AND or OR.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="subject" type="JAZN-DATAsubjectType"
+				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="resource-actions-set" type="JAZN-DATAresource-actions-setType"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="permission-set-refs"
+				type="JAZN-DATApolicy-permission-set-refsType" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="envConstraint" type="JAZN-DATAconstraintType"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAMultiTarget">
+		<xsd:annotation>
+			<xsd:documentation>This element represents an XACML 3.0 target
+				element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="AnyOf" type="JAZN-DATAAnyOfTargetType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAAnyOfTargetType">
+		<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+			<xsd:element name="AllOf" type="JAZN-DATAAllOfTargetType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAAllOfTargetType">
+		<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+			<xsd:element name="sub-target" type="JAZN-DATAtargetType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATArule-refsType">
+		<xsd:sequence>
+			<xsd:element name="rule-ref" type="JAZN-DATArule-refType"
+				minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATArule-refType">
+		<xsd:annotation>
+			<xsd:documentation>need use case for using complex type
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string" />
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApolicy-refsType">
+		<xsd:sequence>
+			<xsd:element name="policy-ref" type="JAZN-DATApolicy-refType"
+				minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApolicy-refType">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string" />
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApolicySet-refsType">
+		<xsd:sequence>
+			<xsd:element name="policySet-ref" type="JAZN-DATApolicySet-refType"
+				minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApolicySet-refType">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string" />
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAobligation-refsType">
+		<xsd:sequence>
+			<xsd:element name="obligation-ref" type="JAZN-DATAobligation-refType"
+				minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAobligation-refType">
+		<xsd:annotation>
+			<xsd:documentation>need use case for using complex type
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string" />
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAadvice-refsType">
+		<xsd:sequence>
+			<xsd:element name="advice-ref" type="JAZN-DATAadvice-refType"
+				minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAadvice-refType">
+		<xsd:annotation>
+			<xsd:documentation>Advice element.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string" />
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAsubjectType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specfies a grantee.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:choice>
+				<xsd:element name="principals" type="JAZN-DATAprincipalsType"
+					minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							This element specifies a set of principals in the grantee.
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="codesource" type="JAZN-DATAcodesourceType"
+					minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							This element specifies the codesource.
+                                </xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="principalConstraint" type="JAZN-DATAconstraintType"
+					minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							This element specifies an attribute based constraint.
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAgranteeType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specfies a grantee.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+            <xsd:element name="meta-data" type="JAZN-DATAmetaDataType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="principals" type="JAZN-DATAprincipalsType"
+				 minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies a set of principals in the grantee.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="codesource" type="JAZN-DATAcodesourceType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the codesource.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAprincipalsType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a Principal.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="principal" type="JAZN-DATAprincipalType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAprincipalType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a principal.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:all>
+			<xsd:element name="name" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the name of the principal.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="class" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the full qualified name of the
+						Java class implementing the Principal.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="uniquename" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the unique name of the principal.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="guid" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies a globally unique identifier of
+						the principal.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+                    <xsd:element name="extended-attributes" type="JAZN-DATAextended-attributesType" minOccurs="0" maxOccurs="1">
+                        <xsd:annotation>
+                            <xsd:documentation>This is the properties for a principal.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAcodesourceType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a codesource.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="url" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies a codesource URL that is used as
+						a codesource.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApermissionsType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a Java Permission.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="permission" type="JAZN-DATApermissionType"
+				maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies a permission.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApermissionType">
+		<xsd:all>
+		        <xsd:element name="metadata-member-type" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+		        <xsd:element name="owner-version" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="class" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies a full qualified name of a class
+						that implements this permission.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="name" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the name of the permission.
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="actions" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						This element specifies the actions of the permission.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="description" type="JAZN-DATAstringType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation />
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="display-name" type="JAZN-DATAstringType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation />
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAjazn-permission-classesType">
+		<xsd:sequence>
+			<xsd:element name="permission-class" type="JAZN-DATApermission-classType"
+				minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						RESERVED FOR FUTURE USE
+                    </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApermission-classType">
+		<xsd:annotation>
+			<xsd:documentation>
+				RESERVED FOR FUTURE USE
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="description" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="type" type="xsd:string" />
+			<xsd:element name="class" type="xsd:string" />
+			<xsd:element name="target-descriptors" type="JAZN-DATAtarget-descriptorsType" />
+			<xsd:element name="action-descriptors" type="JAZN-DATAaction-descriptorsType"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAtarget-descriptorsType">
+		<xsd:annotation>
+			<xsd:documentation>
+				RESERVED FOR FUTURE USE
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="target-descriptor" type="JAZN-DATAtarget-descriptorType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAtarget-descriptorType">
+		<xsd:annotation>
+			<xsd:documentation>
+				RESERVED FOR FUTURE USE
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="description" type="xsd:string"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAaction-descriptorsType">
+		<xsd:annotation>
+			<xsd:documentation> RESERVED FOR FUTURE USE
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="action-descriptor" type="JAZN-DATAaction-descriptorType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAaction-descriptorType">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="description" type="xsd:string"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAjazn-principal-classesType">
+		<xsd:sequence>
+			<xsd:element name="principal-class" type="JAZN-DATAprincipal-classType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAprincipal-classType">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="description" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="type" type="xsd:string" />
+			<xsd:element name="class" type="xsd:string" />
+			<xsd:element name="name-description-map" type="JAZN-DATAname-description-mapType"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAname-description-mapType">
+		<xsd:sequence>
+			<xsd:element name="name-description-pair" type="JAZN-DATAname-description-pairType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAname-description-pairType">
+		<xsd:annotation>
+			<xsd:documentation>
+				RESERVED FOR FUTURE USE
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="description" type="xsd:string"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- JACC -->
+	<xsd:complexType name="JAZN-DATAjacc-repositoryType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies the JACC Policy.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="excluded-policy" type="JAZN-DATAjazn-policyType"
+				minOccurs="0" />
+			<xsd:element name="unchecked-policy" type="JAZN-DATAjazn-policyType"
+				minOccurs="0" />
+			<xsd:element name="role-policy" type="JAZN-DATAjazn-policyType"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- common basic types, may move to another schema file -->
+	<xsd:simpleType name="trueFalseType">
+		<xsd:annotation>
+			<xsd:documentation>This type defines two different values which can
+				designate boolean values. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="true" />
+			<xsd:enumeration value="false" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="JAZN-DATAstringType">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="locale" type="xsd:string" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAextended-attributesType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies an Attribute type.
+           </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="attribute" type="JAZN-DATAextended-propertiesType"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAextended-propertiesType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies an extended properties type.
+           </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="values" type="JAZN-DATAextended-property-valuesType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAextended-property-valuesType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies a values type.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="value" type="JAZN-DATAextended-property-valueType" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+        <xsd:complexType name="JAZN-DATAextended-property-valueType">
+                <xsd:annotation>
+                        <xsd:documentation>
+                                This element specifies a value type.
+            </xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleContent>
+                    <xsd:extension base="xsd:string">
+                       <xsd:attribute name="metadata-member-type" type="xsd:string" />
+                       <xsd:attribute name="owner-version" type="xsd:string" />
+                    </xsd:extension>
+                </xsd:simpleContent>
+        </xsd:complexType>
+	<xsd:complexType name="JAZN-DATAapprolepoliciesType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies role policies type.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="role-policy" type="JAZN-DATAapprolepolicyType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATArolepoliciesType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies role policies type.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="policy" type="JAZN-DATArolepolicyType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATArolepolicyType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies role policy type.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="display-name" type="xsd:string" />
+			<xsd:element name="description" type="xsd:string" />
+			<xsd:element name="target" type="JAZN-DATArolepolicytargetType" />
+			<xsd:element name="rule-refs" type="JAZN-DATArule-refsType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATArolepolicytargetType">
+		<xsd:sequence>
+			<xsd:element name="target-resources" type="JAZN-DATAtargetresourcesType"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="target-resource-expressions"
+				type="JAZN-DATAtargetresourceexpressionsType" minOccurs="0"
+				maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAtargetresourcesType">
+		<xsd:sequence>
+			<xsd:element name="target-resource" type="JAZN-DATAtargetresourceType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAtargetresourceType">
+		<xsd:all>
+			<xsd:element name="name" type="xsd:string" />
+			<xsd:element name="type-name-ref" type="xsd:string" />
+                        <xsd:element name="metadata-member-type" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                        <xsd:element name="owner-version" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAtargetresourceexpressionsType">
+		<xsd:sequence>
+			<xsd:element name="target-resource-expression" type="JAZN-DATAtargetresourceexpressionType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAtargetresourceexpressionType">
+		<xsd:all>
+			<xsd:element name="resource-expression" type="xsd:string" />
+			<xsd:element name="type-name-ref" type="xsd:string" />
+                        <xsd:element name="metadata-member-type" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                        <xsd:element name="owner-version" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAobligationType">
+		<xsd:sequence>
+			<xsd:element name="obligationExpression" type="xsd:string"
+				minOccurs="0" />
+		</xsd:sequence>
+		<xsd:attribute name="obligationId" type="xsd:string"
+			use="required" />
+		<xsd:attribute name="effectType" type="xsd:string" use="required" />
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAadviceType">
+		<xsd:sequence>
+			<xsd:element name="adviceExpression" type="xsd:string"
+				minOccurs="0" />
+		</xsd:sequence>
+		<xsd:attribute name="adviceId" type="xsd:string" use="required" />
+		<xsd:attribute name="appliesTo" type="xsd:string" use="required" />
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAcombinerParameterType">
+		<xsd:sequence>
+			<xsd:element name="attributeValue" type="JAZN-DATAattributeValueType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="parameterName" type="xsd:string"
+			use="required" />
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAruleCombinerParameterType">
+		<xsd:complexContent>
+			<xsd:extension base="JAZN-DATAcombinerParameterType">
+				<xsd:attribute name="ruleId" type="xsd:string" use="required" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApolicyCombinerParameterType">
+		<xsd:complexContent>
+			<xsd:extension base="JAZN-DATAcombinerParameterType">
+				<xsd:attribute name="policyId" type="xsd:string" use="required" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApolicySetCombinerParameterType">
+		<xsd:complexContent>
+			<xsd:extension base="JAZN-DATAcombinerParameterType">
+				<xsd:attribute name="policySetId" type="xsd:string"
+					use="required" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATApolicyIssuerType">
+		<xsd:sequence>
+			<xsd:element name="attribute" type="JAZN-DATAattributesType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="content" type="xsd:string" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAconstraintType">
+		<xsd:annotation>
+			<xsd:documentation>
+				All AVAs are ANDed in a constraint.
+            </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="attributeValueAssertion" type="JAZN-DATAattributeValueAssertionType"
+				minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAattributeValueAssertionType">
+		<xsd:sequence>
+			<xsd:element name="attribute" type="JAZN-DATAattributesType"
+				minOccurs="1" />
+			<xsd:element name="matchingFunction" type="xsd:string"
+				minOccurs="1" />
+			<xsd:element name="mustBePresent" type="xsd:boolean"
+				minOccurs="1" />
+			<xsd:element name="attributeValue" type="JAZN-DATAattributeValueType"
+				minOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAattributeValueType">
+		<xsd:sequence>
+			<xsd:element name="value" type="xsd:string" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xsd:element name="dataType" type="xsd:string" minOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAmetaDataType">
+		<xsd:annotation>
+			<xsd:documentation>
+				This element specifies the meta-data information for a policy artifact
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="owner" type="xsd:string" minOccurs="1"
+				maxOccurs="1" />
+			<xsd:element name="owner-version" type="xsd:string"
+				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="modifier" type="xsd:string" minOccurs="1"
+				maxOccurs="1" />
+			<xsd:element name="customized" type="xsd:boolean"
+				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="custom-version" type="xsd:string"
+				minOccurs="1" maxOccurs="1" />
+			<xsd:element name="soft-delete" type="xsd:boolean"
+				minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="JAZN-DATAsystem-policyType">
+		<xsd:sequence>
+			<xsd:element name="admin-policy" type="JAZN-DATAadmin-policyType"
+				minOccurs="0" />
+			<xsd:element name="jazn-policy" type="JAZN-DATAjazn-policyType"
+				minOccurs="0" />
+		</xsd:sequence>		
+	</xsd:complexType>
+</xsd:schema>

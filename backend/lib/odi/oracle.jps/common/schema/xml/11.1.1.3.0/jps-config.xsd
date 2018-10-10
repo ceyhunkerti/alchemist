@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- changeLog
+    dhgoswam: added PDP and PIP service types    
+    msambojh: added SSO service type
+    dhgoswam: added location attribute to serviceInstanceType
+    dozhou: modified targetnamespace.
+    dhgoswam: added XDS service types
+    dhgoswam: rename JAAS_LM to LOGIN
+    dhgoswam: added KEY_STORE and IDM service types
+	author: rkng
+	component: JPS
+	v2.1: added integrity constraints
+    v2.2: added anonymous user/role schema
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://xmlns.oracle.com/oracleas/schema/11/jps-config-11_1.xsd" targetNamespace="http://xmlns.oracle.com/oracleas/schema/11/jps-config-11_1.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:complexType name="propertyType">
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+		<xsd:attribute name="value" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="propertySetType">
+		<xsd:sequence>
+			<xsd:element name="property" type="tns:propertyType" minOccurs="1"  maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:ID" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="propertySetsType">
+		<xsd:sequence>
+			<xsd:element name="propertySet" type="tns:propertySetType" minOccurs="1"  maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="propertySetRefType">
+		<xsd:attribute name="ref" type="xsd:IDREF" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="extendedPropertyType">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="values" type="tns:extendedPropertyValuesType" minOccurs="1" maxOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="extendedPropertyValuesType">
+		<xsd:sequence>
+			<xsd:element name="value" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="extendedPropertySetType">
+		<xsd:sequence>
+			<xsd:element name="extendedProperty" type="tns:extendedPropertyType" minOccurs="1"  maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:ID" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="extendedPropertySetsType">
+		<xsd:sequence>
+			<xsd:element name="extendedPropertySet" type="tns:extendedPropertySetType" minOccurs="1" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="extendedPropertySetRefType">
+		<xsd:attribute name="ref" type="xsd:IDREF" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="serviceInstancesType">
+		<xsd:sequence>
+			<xsd:element name="serviceInstance" type="tns:serviceInstanceType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="serviceInstanceType">
+		<xsd:sequence>
+            <xsd:element name="description" type="xsd:string" minOccurs="0"/>       
+			<xsd:element name="property" type="tns:propertyType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="propertySetRef" type="tns:propertySetRefType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="extendedProperty" type="tns:extendedPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="extendedPropertySetRef" type="tns:extendedPropertySetRefType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:ID"/>
+		<xsd:attribute name="provider" type="xsd:IDREF"/>
+		<xsd:attribute name="transient" type="xsd:boolean"/>
+        <xsd:attribute name="location" type="xsd:string"/>
+    </xsd:complexType>
+	<xsd:complexType name="serviceInstanceRefType">
+		<xsd:attribute name="ref" type="xsd:IDREF" use="required"/>
+	</xsd:complexType>
+	<xsd:simpleType name="serviceType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="CREDENTIAL_STORE"/>
+			<xsd:enumeration value="IDENTITY_STORE"/>
+			<xsd:enumeration value="LOGIN"/>
+			<xsd:enumeration value="POLICY_STORE"/>
+			<xsd:enumeration value="ANONYMOUS"/>
+			<xsd:enumeration value="KEY_STORE"/>
+			<xsd:enumeration value="IDM"/>
+			<xsd:enumeration value="CUSTOM"/>
+			<xsd:enumeration value="TRUST"/>
+            <xsd:enumeration value="XDS_AUTHENTICATION_PROVIDER"/>
+            <xsd:enumeration value="XDS_SESSION_PROVIDER"/>
+            <xsd:enumeration value="AUDIT"/>
+            <xsd:enumeration value="SSO"/>
+            <xsd:enumeration value="PDP"/>
+            <xsd:enumeration value="PIP"/>
+        </xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="serviceProvidersType">
+		<xsd:sequence>
+			<xsd:element name="serviceProvider" type="tns:serviceProviderType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="serviceProviderType">
+		<xsd:sequence>
+			<xsd:element name="description" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="property" type="tns:propertyType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="type" type="tns:serviceType" use="required"/>
+		<xsd:attribute name="name" type="xsd:ID" use="required"/>
+		<xsd:attribute name="class" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="jpsContextRefType">
+		<xsd:attribute name="ref" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="jpsContextType">
+		<xsd:sequence>
+			<xsd:choice>
+				<xsd:element name="serviceInstanceRef" type="tns:serviceInstanceRefType" maxOccurs="unbounded"/>
+				<xsd:element name="jpsContextRef" type="tns:jpsContextRefType"/>
+			</xsd:choice>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="jpsContextsType">
+		<xsd:sequence>
+			<xsd:element name="jpsContext" type="tns:jpsContextType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="default" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:element name="jpsConfig">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="property" type="tns:propertyType" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="propertySets" type="tns:propertySetsType" minOccurs="0"/>
+				<xsd:element name="extendedProperty" type="tns:extendedPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="extendedPropertySets" type="tns:extendedPropertySetsType" minOccurs="0"/>
+				<xsd:element name="serviceProviders" type="tns:serviceProvidersType" minOccurs="0"/>
+				<xsd:element name="serviceInstances" type="tns:serviceInstancesType" minOccurs="0"/>
+				<xsd:element name="jpsContexts" type="tns:jpsContextsType"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

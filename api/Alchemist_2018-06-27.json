@@ -1,0 +1,380 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2018-06-27T10:21:50.707Z",
+	"__export_source": "insomnia.desktop.app:v5.11.7",
+	"resources": [
+		{
+			"_id": "wrk_effe3260f41c467fa01769008c3bca92",
+			"parentId": null,
+			"modified": 1510764124211,
+			"created": 1510763562940,
+			"name": "Alchemist",
+			"description": "",
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_8786a01771804d868e2945affd70f1f7",
+			"parentId": "wrk_effe3260f41c467fa01769008c3bca92",
+			"modified": 1510763562942,
+			"created": 1510763562942,
+			"name": "Base Environment",
+			"data": {},
+			"color": null,
+			"isPrivate": false,
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_6d4ca2edc55444f1a71326bf692eea69",
+			"parentId": "wrk_effe3260f41c467fa01769008c3bca92",
+			"modified": 1529256772287,
+			"created": 1510763562941,
+			"name": "Default Jar",
+			"cookies": [
+				{
+					"id": "5a5204ee-307b-469b-ae84-81c02720faf0",
+					"key": "foo",
+					"value": "bar",
+					"domain": "domain.com",
+					"expires": null,
+					"path": "/",
+					"secure": false,
+					"httpOnly": false
+				}
+			],
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "fld_8eb56654e6f546fabb258bcc7967968e",
+			"parentId": "wrk_effe3260f41c467fa01769008c3bca92",
+			"modified": 1529258512437,
+			"created": 1529238387104,
+			"name": "user",
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1529238387104,
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_e7c424797068446bbd35aa870564b2ad",
+			"parentId": "wrk_effe3260f41c467fa01769008c3bca92",
+			"modified": 1529258523533,
+			"created": 1529258523533,
+			"name": "connection",
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1529258523533,
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_55c0d015de2f4cb3a3407572a10be9c0",
+			"parentId": "wrk_effe3260f41c467fa01769008c3bca92",
+			"modified": 1529928801682,
+			"created": 1529928801682,
+			"name": "session",
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1529928801682,
+			"_type": "request_group"
+		},
+		{
+			"_id": "env_1a11d4bd7b7041e2a614750623e24b37",
+			"parentId": "env_8786a01771804d868e2945affd70f1f7",
+			"modified": 1530086589183,
+			"created": 1529256748610,
+			"name": "Development",
+			"data": {
+				"API_BASE": "http://localhost:9090/api/v1",
+				"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYWxjaGVtaXN0LXJlc291cmNlLWlkIl0sInVzZXJfbmFtZSI6InN5c3RlbSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1MzAxMjk3NjYsImF1dGhvcml0aWVzIjpbIlJPTEVfTUFTVEVSIl0sImp0aSI6IjUzZDFjMDEwLTZiMDYtNDdlZi04NzhiLWExNDNmYTlmMzE5OSIsImNsaWVudF9pZCI6ImFsY2hlbWlzdC1jbGllbnQtaWQifQ.qegfyCt1OxlRiLjqP4987lGWv0Y0A6Igrmh3vPcnnFY",
+				"token_type": "bearer",
+				"expires_in": 43199,
+				"scope": "read write",
+				"jti": "0954bfd0-fb24-424b-9cc0-cc717b8ed871",
+				"odi_jdbc_url": "jdbc:oracle:thin:@192.168.56.101:1521:orcl",
+				"odi_master_username": "DEV2_ODI_REPO",
+				"odi_master_password": "oracle",
+				"odi_work_repo": "WORKREP",
+				"odi_username": "SUPERVISOR",
+				"odi_password": "welcome1"
+			},
+			"color": "#eeeed4",
+			"isPrivate": false,
+			"_type": "environment"
+		},
+		{
+			"_id": "req_9fcce090cfa44820a717f1a6c60a8f95",
+			"parentId": "fld_8eb56654e6f546fabb258bcc7967968e",
+			"modified": 1530017776817,
+			"created": 1529238391958,
+			"url": "{{ API_BASE  }}/users",
+			"name": "findAll",
+			"description": "",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [],
+			"authentication": {
+				"type": "bearer",
+				"token": "{{ access_token  }}"
+			},
+			"metaSortKey": -1529238391958,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_ddd2df4684734260833bb812e931e7c7",
+			"parentId": "fld_8eb56654e6f546fabb258bcc7967968e",
+			"modified": 1530017824442,
+			"created": 1529262282938,
+			"url": "{{ API_BASE  }}/users/me",
+			"name": "findMe",
+			"description": "",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [],
+			"authentication": {
+				"type": "bearer",
+				"token": "{{ access_token  }}"
+			},
+			"metaSortKey": -1529130379212.5,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_f12351e23d81437d86c85a6c204bbfbd",
+			"parentId": "fld_e7c424797068446bbd35aa870564b2ad",
+			"modified": 1529262103097,
+			"created": 1529258529895,
+			"url": "{{ API_BASE  }}/connections",
+			"name": "findAll",
+			"description": "",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [],
+			"authentication": {
+				"type": "bearer",
+				"token": "{{ access_token  }}"
+			},
+			"metaSortKey": -1529022366467,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_7d4eea4fca734ab9b32401e096799b0b",
+			"parentId": "fld_e7c424797068446bbd35aa870564b2ad",
+			"modified": 1529262090615,
+			"created": 1529259018573,
+			"url": "{{ API_BASE  }}/connections/test",
+			"name": "test",
+			"description": "Test odi repository connection\n\n\n\n",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"url\": \"{{ odi_jdbc_url  }}\",\n\t\"masterUsername\": \"{{ odi_master_username  }}\",\n  \"masterPassword\": \"{{ odi_master_password  }}\",\n  \"workRepo\": \"{{ odi_work_repo  }}\",\n  \"odiUsername\": \"{{ odi_username  }}\",\n  \"odiPassword\": \"{{ odi_password  }}\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_ae807bbb4297494dadf34b25b7e4f75e"
+				}
+			],
+			"authentication": {
+				"type": "bearer",
+				"token": "{{ access_token  }}"
+			},
+			"metaSortKey": -1529259018573,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_145ad9fedeeb47b3991bd4bb6d013a34",
+			"parentId": "fld_e7c424797068446bbd35aa870564b2ad",
+			"modified": 1530023525700,
+			"created": 1529261347861,
+			"url": "{{ API_BASE  }}/connections",
+			"name": "create",
+			"description": "Test odi repository connection\n\n\n\n",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"name\": \"Aksigorta Prod\",\n\t\"url\": \"jdbc:oracle:thin:@172.26.112.121:1521/ORCLDB\",\n\t\"masterUsername\": \"PROD_ODI_REPO\",\n  \"masterPassword\": \"welcome39\",\n  \"workRepo\": \"{{ odi_work_repo  }}\",\n  \"odiUsername\": \"{{ odi_username  }}\",\n  \"odiPassword\": \"WELCOME39\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_ae807bbb4297494dadf34b25b7e4f75e"
+				}
+			],
+			"authentication": {
+				"type": "bearer",
+				"token": "{{ access_token  }}"
+			},
+			"metaSortKey": -1529248705265.5,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_9261a46a9cf04d308b1c43e690cd4335",
+			"parentId": "fld_e7c424797068446bbd35aa870564b2ad",
+			"modified": 1529262127644,
+			"created": 1529261981947,
+			"url": "{{ API_BASE  }}/connections/work-repos",
+			"name": "findWorkRepos",
+			"description": "Test odi repository connection\n\n\n\n",
+			"method": "POST",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"url\": \"{{ odi_jdbc_url  }}\",\n\t\"masterUsername\": \"{{ odi_master_username  }}\",\n  \"masterPassword\": \"{{ odi_master_password  }}\",\n  \"workRepo\": \"{{ odi_work_repo  }}\",\n  \"odiUsername\": \"{{ odi_username  }}\",\n  \"odiPassword\": \"{{ odi_password  }}\"\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_ae807bbb4297494dadf34b25b7e4f75e"
+				}
+			],
+			"authentication": {
+				"type": "bearer",
+				"token": "{{ access_token  }}"
+			},
+			"metaSortKey": -1529243548611.75,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_a0d3c1955da34d5299ee10d809c3a5b9",
+			"parentId": "fld_e7c424797068446bbd35aa870564b2ad",
+			"modified": 1529263876143,
+			"created": 1529262207658,
+			"url": "{{ API_BASE  }}/connections/2",
+			"name": "update",
+			"description": "Test odi repository connection\n\n\n\n",
+			"method": "PUT",
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"name\": \"Demo Connection 01 Updated\",\n\t\"isDefault\": true\n}"
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_ae807bbb4297494dadf34b25b7e4f75e"
+				}
+			],
+			"authentication": {
+				"type": "bearer",
+				"token": "{{ access_token  }}"
+			},
+			"metaSortKey": -1529246126938.625,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_12137c54cd924f6daa504291b347c73f",
+			"parentId": "fld_e7c424797068446bbd35aa870564b2ad",
+			"modified": 1530023771309,
+			"created": 1530023750050,
+			"url": "{{ API_BASE  }}/connections/test/3",
+			"name": "testById",
+			"description": "Test odi repository connection\n\n\n\n",
+			"method": "GET",
+			"body": {
+				"mimeType": "application/json",
+				"text": ""
+			},
+			"parameters": [],
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json",
+					"id": "pair_ae807bbb4297494dadf34b25b7e4f75e"
+				}
+			],
+			"authentication": {
+				"type": "bearer",
+				"token": "{{ access_token  }}"
+			},
+			"metaSortKey": -1529253861919.25,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_78cda8fab1dc4acf9f2d01a5a0b59a04",
+			"parentId": "fld_55c0d015de2f4cb3a3407572a10be9c0",
+			"modified": 1530027931545,
+			"created": 1530027882306,
+			"url": "{{ API_BASE  }}/sessions/load-plans?connectionId=3",
+			"name": "findLoadPlanRuns",
+			"description": "",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [],
+			"authentication": {
+				"type": "bearer",
+				"token": "{{ access_token  }}"
+			},
+			"metaSortKey": -1530027882306,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_76cef74ad68e41ef9f6b9abc5a85054a",
+			"parentId": "fld_55c0d015de2f4cb3a3407572a10be9c0",
+			"modified": 1530028837402,
+			"created": 1530028762436,
+			"url": "{{ API_BASE  }}/sessions/load-plans/last?connectionId=3",
+			"name": "findLastLoadPlanRuns",
+			"description": "",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [],
+			"authentication": {
+				"type": "bearer",
+				"token": "{{ access_token  }}"
+			},
+			"metaSortKey": -1529643450439.5,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		}
+	]
+}

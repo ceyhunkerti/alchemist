@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- changeLog
+	author: dozhou
+	component: JPS
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://xmlns.oracle.com/oracleas/schema/11/opss-application-11_1.xsd"
+            targetNamespace="http://xmlns.oracle.com/oracleas/schema/11/opss-application-11_1.xsd"
+            elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xsd:complexType name="propertyType">
+        <xsd:attribute name="name" type="xsd:string" use="required"/>
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+    <xsd:complexType name="extendedPropertyType">
+        <xsd:sequence>
+            <xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="values" type="tns:extendedPropertyValuesType" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="extendedPropertyValuesType">
+        <xsd:sequence>
+            <xsd:element name="value" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="serviceType">
+        <xsd:sequence>
+            <xsd:element name="property" type="tns:propertyType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="extendedProperty" type="tns:extendedPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="type" type="xsd:ID"/>
+    </xsd:complexType>
+    <xsd:complexType name="servicesType">
+        <xsd:sequence>
+            <xsd:element name="service" type="tns:serviceType" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="opss-application">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="services" type="tns:servicesType" minOccurs="0"/>
+            </xsd:sequence>
+            <xsd:attribute name="schema-major-version" type="xsd:integer"/>
+            <xsd:attribute name="schema-minor-version" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

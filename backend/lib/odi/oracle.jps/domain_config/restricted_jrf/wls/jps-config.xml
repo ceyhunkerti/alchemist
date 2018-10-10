@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpsConfig xmlns="http://xmlns.oracle.com/oracleas/schema/11/jps-config-11_1.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schema-major-version="11" schema-minor-version="1" xsi:schemaLocation="http://xmlns.oracle.com/oracleas/schema/11/jps-config-11_1.xsd jps-config-11_1.xsd">
+    <property name="oracle.security.jps.jaas.mode" value="off"/>
+    <property name="oracle.security.jps.enterprise.user.class" value="weblogic.security.principal.WLSUserImpl"/>
+    <property name="oracle.security.jps.enterprise.role.class" value="weblogic.security.principal.WLSGroupImpl"/>
+    <serviceProviders>
+        <serviceProvider type="CREDENTIAL_STORE" name="credstoressp" class="oracle.security.jps.internal.credstore.ssp.SspCredentialStoreProvider">
+            <description>SecretStore-based CSF Provider</description>
+        </serviceProvider>
+        <serviceProvider type="POLICY_STORE" name="policystore.xml.provider" class="oracle.security.jps.internal.policystore.xml.XmlPolicyStoreProvider">
+            <description>XML-based PolicyStore Provider</description>
+        </serviceProvider>
+        <serviceProvider type="KEY_STORE" name="keystore.provider" class="oracle.security.jps.internal.keystore.KeyStoreProvider">
+            <description>PKI Based Keystore Provider</description>
+        </serviceProvider>
+    </serviceProviders>
+    <serviceInstances>
+        <serviceInstance name="bootstrap.credstore" provider="credstoressp" location="./bootstrap">
+            <description>Bootstrap Credential Store Service Instance</description>
+            <property name="location" value="./bootstrap"/>
+        </serviceInstance>
+        <serviceInstance name="policystore.xml" provider="policystore.xml.provider" location="./system-jazn-data.xml">
+            <description>File Based Policy Store Service Instance</description>
+        </serviceInstance>
+        <serviceInstance name="keystore" provider="keystore.provider">
+            <description>Default JPS Keystore Service</description>
+            <property name="keystore.file.path" value="./"/>
+        </serviceInstance>
+    </serviceInstances>
+    <jpsContexts default="default">
+        <jpsContext name="default">
+            <serviceInstanceRef ref="keystore"/>
+            <serviceInstanceRef ref="policystore.xml"/>
+        </jpsContext>
+        <jpsContext name="bootstrap_credstore_context">
+            <serviceInstanceRef ref="bootstrap.credstore"/>
+        </jpsContext>
+    </jpsContexts>
+</jpsConfig>

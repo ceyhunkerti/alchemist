@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<application-mbeans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://xmlns.oracle.com/oracleas/schema/11/application-mbeans-11_1.xsd" schema-major-version="11" schema-minor-version="1">
+    <config-mbeans>
+        <jmx-config-mbean management-interface="oracle.security.jps.mas.mgmt.jmx.keystore.JpsKeyStoreMXBean" class="oracle.security.jps.mas.mgmt.jmx.keystore.JpsKeyStoreBeanImpl" objectname="com.oracle.jps:type=JpsKeyStore">
+            <property value="Farm" key="Scope" />
+        </jmx-config-mbean>
+    </config-mbeans>
+</application-mbeans>

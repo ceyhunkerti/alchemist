@@ -1,0 +1,312 @@
+<?xml version='1.0' encoding='utf-8'?>
+<jazn-data>
+    <jazn-realm>
+    </jazn-realm>
+    <policy-store>
+        <applications>
+            <application>
+                <name>oracle-fmw</name>
+                <resource-types>
+                    <resource-type>
+                        <name>TaskFlowResourceType</name>
+                        <display-name>TaskFlowResourceType</display-name>
+                        <description>ADF Taskflow</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.adf.controller.security.TaskFlowPermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>personalize,grant,customize,view</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>RegionResourceType</name>
+                        <display-name>RegionResourceType</display-name>
+                        <description>ADF Region</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.adf.share.security.authorization.RegionPermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>personalize,grant,customize,edit,view</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>ESSMetadataResourceType</name>
+                        <display-name>ESSMetadataResourceType</display-name>
+                        <description>ESS Resource</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.as.scheduler.security.MetadataPermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>update,execute,delete,read,create</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>WebserviceResourceType</name>
+                        <display-name>WebserviceResourceType</display-name>
+                        <description>Webservice Resource</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.wsm.security.WSFunctionPermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>invoke</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>ADFMethodResourceType</name>
+                        <display-name>ADFMethodResourcetype</display-name>
+                        <description>ADF Method resource</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.adf.share.security.authorization.MethodPermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>invoke</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>EventPermissionResourceType</name>
+                        <display-name>EventPermissionResourceType</display-name>
+                        <description>WebCenter Event Permission</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.webcenter.collab.calendar.model.security.EventPermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>update,delete,manage,view,create</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>ListPermissionResourceType</name>
+                        <display-name>ListPermissionResourceType</display-name>
+                        <description>WebCenter List Permission</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.webcenter.list.model.security.ListPermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>update,delete,edit,manage,view,create</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>ActivityStreamingPermissionResourceType</name>
+                        <display-name>ActivityStreamingPermissionResourceType</display-name>
+                        <description>WebCenter Activity Streaming Permission</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.webcenter.activitystreaming.security.ActivityStreamingPermission
+                        </matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>manage,view</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>WallPermissionResourceType</name>
+                        <display-name>WallPermissionResourceType</display-name>
+                        <description>WebCenter Kudos Permission</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.webcenter.peopleconnections.wall.security.WallPermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>delete,edit,manage,view,add</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>KudosPermissionResourceType</name>
+                        <display-name>KudosPermissionResourceType</display-name>
+                        <description>WebCenter Kudos Permission</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.webcenter.peopleconnections.kudos.security.KudosPermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>edit,manage,view</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>ConnectionsPermissionResourceType</name>
+                        <display-name>ConnectionsPermissionResourceType</display-name>
+                        <description>WebCenter Connections Permission</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.webcenter.peopleconnections.connections.security.ConnectionsPermission
+                        </matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>edit,manage,view,create</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>RelationshipPermissionResourceType</name>
+                        <display-name>RelationshipPermissionResourceType</display-name>
+                        <description>WebCenter Relationship Permission</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.webcenter.relationship.model.security.RelationshipPermission
+                        </matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>delete,manage,create</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>NotePermissionResourceType</name>
+                        <display-name>NotePermissionResourceType</display-name>
+                        <description>WebCenter Note Permission</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.webcenter.note.model.security.NotePermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>update,delete,manage,view,create</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>PagePermissionResourceType</name>
+                        <display-name>PagePermissionResourceType</display-name>
+                        <description>WebCenter Custom Page Permission</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.webcenter.page.model.security.PagePermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>update,personalize,delete,manage,view,create</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>CustomPagePermissionResourceType</name>
+                        <display-name>CustomPagePermissionResourceType</display-name>
+                        <description>WebCenter Custom Page Permission</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.webcenter.page.model.security.CustomPagePermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>update,personalize,delete,manage,view,create</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>ProfilePermissionResourceType</name>
+                        <display-name>ProfilePermissionResourceType</display-name>
+                        <description>WebCenter UserProfile Permission</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.webcenter.peopleconnections.profile.security.ProfilePermission
+                        </matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>edit,view,manage</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>RoleMappingPermissionResourceType</name>
+                        <display-name>RoleMappingPermissionResourceType</display-name>
+                        <description>WebCenter RoleMapping Permission</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.webcenter.security.internal.rolemapping.RoleMappingPermission
+                        </matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                    </resource-type>
+                    <resource-type>
+                        <name>CommunityPermissionResourceType</name>
+                        <display-name>CommunityPermissionResourceType</display-name>
+                        <description>WebCenter Community Permission</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.webcenter.community.model.security.CommunityPermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>view,manage,configure</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>WebCenterSpacesResourceType</name>
+                        <display-name>WebCenterSpacesResourceType</display-name>
+                        <description>WebCenter Spaces Permission</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.webcenter.webcenterapp.model.security.WebCenterPermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>create-space,create-template,view,manage,configure</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>ADFEntityResourceType</name>
+                        <display-name>ADF Entity ResourceType</display-name>
+                        <description>ADF Entity Permission</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.adf.share.security.authorization.EntityPermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>update,delete,read</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>ESSRequestSimpleResourceType</name>
+                        <display-name>ESS Request Simple Resource Type</display-name>
+                        <description>Resource type for simple ESS request access control</description>
+                        <provider-name></provider-name>
+                        <matcher-class>oracle.as.scheduler.security.RuntimeDataPermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>
+                            ESS_REQUEST_READ,ESS_REQUEST_HOLD,ESS_REQUEST_LOCK,ESS_REQUEST_PURGE,ESS_REQUEST_DELETE,ESS_REQUEST_UPDATE,ESS_REQUEST_CANCEL,ESS_REQUEST_OUTPUT_READ,ESS_REQUEST_OUTPUT_DELETE,ESS_REQUEST_RELEASE
+                        </actions>
+                    </resource-type>
+
+                    <!-- BI Resource Type -->
+                    <resource-type>
+                        <name>WorkflowPermission</name>
+                        <display-name>WorkflowPermissionResourceType</display-name>
+                        <description>Workflow Permission Resource Type</description>
+                        <matcher-class>oracle.bpel.services.workflow.permission.WorkflowPermission</matcher-class>
+                    </resource-type>
+
+                    <!-- biplatform & biapps resource-types -->
+
+                    <resource-type>
+                        <name>oracle.bi.scheduler.permission</name>
+                        <display-name>oracle.bi.scheduler.permission</display-name>
+                        <description>oracle.bi.scheduler.permission</description>
+                        <matcher-class>oracle.security.jps.ResourcePermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>_all_</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>oracle.bi.server.permission</name>
+                        <display-name>oracle.bi.server.permission</display-name>
+                        <description>oracle.bi.server.permission</description>
+                        <matcher-class>oracle.security.jps.ResourcePermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>_all_</actions>
+                    </resource-type>
+
+                    <resource-type>
+                        <name>oracle.bi.publisher.permission</name>
+                        <display-name>oracle.bi.publisher.permission</display-name>
+                        <description>oracle.bi.publisher.permission</description>
+                        <matcher-class>oracle.security.jps.ResourcePermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>_all_</actions>
+                    </resource-type>
+
+                    <resource-type>
+                        <name>epm.calcmgr.permission</name>
+                        <display-name>epm.calcmgr.permission</display-name>
+                        <description>epm.calcmgr.permission</description>
+                        <matcher-class>oracle.security.jps.ResourcePermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>_all_</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>epm.essbase.permission</name>
+                        <display-name>epm.essbase.permission</display-name>
+                        <description>epm.essbase.permission</description>
+                        <matcher-class>oracle.security.jps.ResourcePermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>_all_</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>epm.fr.permission</name>
+                        <display-name>epm.fr.permission</display-name>
+                        <description>epm.fr.permission</description>
+                        <matcher-class>oracle.security.jps.ResourcePermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>_all_</actions>
+                    </resource-type>
+
+                    <resource-type>
+                        <name>rtd_batch</name>
+                        <display-name>BATCH</display-name>
+                        <description>Registered batch job type name</description>
+                        <matcher-class>oracle.security.jps.ResourcePermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>batch_admin</actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>rtd_ils</name>
+                        <display-name>ILS</display-name>
+                        <description>Inline Service name</description>
+                        <matcher-class>oracle.security.jps.ResourcePermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>
+                            choice_editor,decision_service:stress,open_service:write,decision_service:normal,open_service:read,deploy_service,download_service
+                        </actions>
+                    </resource-type>
+                    <resource-type>
+                        <name>rtd_dc_persp</name>
+                        <display-name>DC_PERSPECTIVE</display-name>
+                        <description>Decision Center Perspective name</description>
+                        <matcher-class>oracle.security.jps.ResourcePermission</matcher-class>
+                        <actions-delimiter>,</actions-delimiter>
+                        <actions>dc_perspective</actions>
+                    </resource-type>
+
+                    <!-- JpsPermission Resource Type -->
+
+                    <resource-type>
+                        <name>JpsPermission</name>
+                        <display-name>JpsPermissionResourceType</display-name>
+                        <description>JPS Permission Resource Type</description>
+                        <matcher-class>oracle.security.jps.JpsPermission</matcher-class>
+                    </resource-type>
+
+                </resource-types>
+                <jazn-policy>
+                </jazn-policy>
+            </application>
+        </applications>
+    </policy-store>
+    <jazn-policy>
+    </jazn-policy>
+</jazn-data>
+

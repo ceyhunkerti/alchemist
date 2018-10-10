@@ -1,0 +1,18 @@
+{
+  "APP_URL": "http://localhost:9090/api/v1",
+  "username": "system",
+  "password": "system",
+  "connectionId": 7,
+  "export": {
+    "options": {
+      "exportChildComponents": true,
+      "exportKey": null,
+      "javaCharSet": "ISO8859_1",
+      "objectType": "SCENARIO",
+      "reExportKey": null,
+      "xmlCharSet": "ISO-8859-1",
+      "xmlVersion": "1.0"
+    },
+    "path": "/tmp"
+  }
+}
