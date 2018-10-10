@@ -24,5 +24,6 @@ gradle/**
 /application.properties
 test
 token.sh
-dist/ck
+dist/ck/*
+!dist/ck/alchemist.jar
 # dist
