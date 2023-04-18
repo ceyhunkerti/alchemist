@@ -23,7 +23,7 @@
   xsrfHeaderName: 'X-XSRF-TOKEN',
   maxContentLength: -1,
   validateStatus: [Function: validateStatus],
-  headers: 
+  headers:
    { Accept: 'application/json, text/plain, */*',
      Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYWxjaGVtaXN0LXJlc291cmNlLWlkIl0sInVzZXJfbmFtZSI6InN5c3RlbSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1Mzg3OTgwMTksImF1dGhvcml0aWVzIjpbIlJPTEVfTUFTVEVSIl0sImp0aSI6IjcxOWQ2OWQ0LTU0NmYtNGQ1My1iODI4LTllNTk2YjM5NDMzNSIsImNsaWVudF9pZCI6ImFsY2hlbWlzdC1jbGllbnQtaWQifQ._5mctc_WeocL0Wx4dEhhfjYqnCX0ZfbV9kSNBcVLl7g',
      'User-Agent': 'axios/0.18.0' },
@@ -33,7 +33,7 @@
   data: undefined }
 ClientRequest {
   domain: null,
-  _events: 
+  _events:
    { socket: [Function],
      abort: [Function],
      aborted: [Function],
@@ -61,14 +61,14 @@ ClientRequest {
   _trailer: '',
   finished: true,
   _headerSent: true,
-  socket: 
+  socket:
    Socket {
      connecting: false,
      _hadError: false,
      _handle: null,
      _parent: null,
      _host: 'localhost',
-     _readableState: 
+     _readableState:
       ReadableState {
         objectMode: false,
         highWaterMark: 16384,
@@ -93,7 +93,7 @@ ClientRequest {
         encoding: null },
      readable: false,
      domain: null,
-     _events: 
+     _events:
       { end: [Object],
         finish: [Function: onSocketFinish],
         _socketEnd: [Function: onSocketEnd],
@@ -104,7 +104,7 @@ ClientRequest {
         error: [Function: socketErrorListener] },
      _eventsCount: 8,
      _maxListeners: undefined,
-     _writableState: 
+     _writableState:
       WritableState {
         objectMode: false,
         highWaterMark: 16384,
@@ -146,14 +146,14 @@ ClientRequest {
      _idleTimeout: -1,
      [Symbol(asyncId)]: 25,
      [Symbol(bytesRead)]: 2147 },
-  connection: 
+  connection:
    Socket {
      connecting: false,
      _hadError: false,
      _handle: null,
      _parent: null,
      _host: 'localhost',
-     _readableState: 
+     _readableState:
       ReadableState {
         objectMode: false,
         highWaterMark: 16384,
@@ -178,7 +178,7 @@ ClientRequest {
         encoding: null },
      readable: false,
      domain: null,
-     _events: 
+     _events:
       { end: [Object],
         finish: [Function: onSocketFinish],
         _socketEnd: [Function: onSocketEnd],
@@ -189,7 +189,7 @@ ClientRequest {
         error: [Function: socketErrorListener] },
      _eventsCount: 8,
      _maxListeners: undefined,
-     _writableState: 
+     _writableState:
       WritableState {
         objectMode: false,
         highWaterMark: 16384,
@@ -233,7 +233,7 @@ ClientRequest {
      [Symbol(bytesRead)]: 2147 },
   _header: 'GET /api/v1/connections HTTP/1.1\r\nAccept: application/json, text/plain, */*\r\nAuthorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYWxjaGVtaXN0LXJlc291cmNlLWlkIl0sInVzZXJfbmFtZSI6InN5c3RlbSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1Mzg3OTgwMTksImF1dGhvcml0aWVzIjpbIlJPTEVfTUFTVEVSIl0sImp0aSI6IjcxOWQ2OWQ0LTU0NmYtNGQ1My1iODI4LTllNTk2YjM5NDMzNSIsImNsaWVudF9pZCI6ImFsY2hlbWlzdC1jbGllbnQtaWQifQ._5mctc_WeocL0Wx4dEhhfjYqnCX0ZfbV9kSNBcVLl7g\r\nUser-Agent: axios/0.18.0\r\nHost: localhost:9090\r\nConnection: close\r\n\r\n',
   _onPendingData: [Function: noopPendingOutput],
-  agent: 
+  agent:
    Agent {
      domain: null,
      _events: { free: [Function] },
@@ -254,9 +254,9 @@ ClientRequest {
   method: 'GET',
   path: '/api/v1/connections',
   _ended: true,
-  res: 
+  res:
    IncomingMessage {
-     _readableState: 
+     _readableState:
       ReadableState {
         objectMode: false,
         highWaterMark: 16384,
@@ -281,13 +281,13 @@ ClientRequest {
         encoding: null },
      readable: false,
      domain: null,
-     _events: 
+     _events:
       { end: [Array],
         data: [Function: handleStreamData],
         error: [Function: handleStreamError] },
      _eventsCount: 3,
      _maxListeners: undefined,
-     socket: 
+     socket:
       Socket {
         connecting: false,
         _hadError: false,
@@ -316,7 +316,7 @@ ClientRequest {
         _idleTimeout: -1,
         [Symbol(asyncId)]: 25,
         [Symbol(bytesRead)]: 2147 },
-     connection: 
+     connection:
       Socket {
         connecting: false,
         _hadError: false,
@@ -349,7 +349,7 @@ ClientRequest {
      httpVersionMinor: 1,
      httpVersion: '1.1',
      complete: true,
-     headers: 
+     headers:
       { 'access-control-allow-origin': '*',
         'access-control-allow-methods': 'POST, GET, OPTIONS, DELETE, PUT',
         'access-control-max-age': '3600',
@@ -365,7 +365,7 @@ ClientRequest {
         'transfer-encoding': 'chunked',
         date: 'Fri, 05 Oct 2018 15:53:39 GMT',
         connection: 'close' },
-     rawHeaders: 
+     rawHeaders:
       [ 'Access-Control-Allow-Origin',
         '*',
         'Access-Control-Allow-Methods',
@@ -403,7 +403,7 @@ ClientRequest {
      method: null,
      statusCode: 200,
      statusMessage: '',
-     client: 
+     client:
       Socket {
         connecting: false,
         _hadError: false,
@@ -443,9 +443,9 @@ ClientRequest {
   upgradeOrConnect: false,
   parser: null,
   maxHeadersCount: null,
-  _redirectable: 
+  _redirectable:
    Writable {
-     _writableState: 
+     _writableState:
       WritableState {
         objectMode: false,
         highWaterMark: 16384,
@@ -474,12 +474,12 @@ ClientRequest {
         corkedRequestsFree: [Object] },
      writable: true,
      domain: null,
-     _events: 
+     _events:
       { response: [Function: handleResponse],
         error: [Function: handleRequestError] },
      _eventsCount: 2,
      _maxListeners: undefined,
-     _options: 
+     _options:
       { protocol: 'http:',
         maxRedirects: 21,
         maxBodyLength: 10485760,
@@ -499,9 +499,9 @@ ClientRequest {
      _onNativeResponse: [Function],
      _currentRequest: [Circular],
      _currentUrl: 'http://localhost:9090/api/v1/connections' },
-  [Symbol(outHeadersKey)]: 
+  [Symbol(outHeadersKey)]:
    { accept: [ 'Accept', 'application/json, text/plain, */*' ],
-     authorization: 
+     authorization:
       [ 'Authorization',
         'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYWxjaGVtaXN0LXJlc291cmNlLWlkIl0sInVzZXJfbmFtZSI6InN5c3RlbSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1Mzg3OTgwMTksImF1dGhvcml0aWVzIjpbIlJPTEVfTUFTVEVSIl0sImp0aSI6IjcxOWQ2OWQ0LTU0NmYtNGQ1My1iODI4LTllNTk2YjM5NDMzNSIsImNsaWVudF9pZCI6ImFsY2hlbWlzdC1jbGllbnQtaWQifQ._5mctc_WeocL0Wx4dEhhfjYqnCX0ZfbV9kSNBcVLl7g' ],
      'user-agent': [ 'User-Agent', 'axios/0.18.0' ],
@@ -515,7 +515,7 @@ ClientRequest {
     odiUsername: 'ceyhunk',
     odiPassword: 'ceyhunk',
     isDefault: false,
-    user: 
+    user:
      { id: 1,
        username: 'system',
        role: 'MASTER',
@@ -533,7 +533,7 @@ ClientRequest {
     odiUsername: 'SUPERVISOR',
     odiPassword: 'SUPERVISOR',
     isDefault: true,
-    user: 
+    user:
      { id: 1,
        username: 'system',
        role: 'MASTER',
@@ -551,7 +551,7 @@ ClientRequest {
     odiUsername: 'SUPERVISOR',
     odiPassword: 'odi2018dwh',
     isDefault: false,
-    user: 
+    user:
      { id: 1,
        username: 'system',
        role: 'MASTER',
@@ -569,7 +569,7 @@ ClientRequest {
     odiUsername: 'SUPERVISOR',
     odiPassword: 'welcome1',
     isDefault: false,
-    user: 
+    user:
      { id: 1,
        username: 'system',
        role: 'MASTER',

@@ -146,7 +146,7 @@ dependencies {
   compile fileTree(include: [
     'bsh-2.0b4.jar',
     'identitystore.jar',
-    'odi-core-aksigorta.jar',
+    'odi-core-aks.jar',
     // 'odi-core-ck.jar',
     'ojdl.jar',
     'dms.jar'
